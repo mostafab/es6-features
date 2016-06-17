@@ -4,15 +4,22 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function () {
+(function (global) {
 
     var patients = [{ name: 'Inspector Javert', dob: 'Jan' }, { name: 'Billy Pilgrim', dob: 'Feb' }, { name: 'Sancho Panza', dob: 'Jan' }];
 
-    var string = '';
+    var patientString = '';
     patients.forEach(function (patient) {
-        return string += 'This is ' + patient.name + '. He was born in ' + patient.dob + '\n';
+        var _patient$name = patient.name;
+        var name = _patient$name === undefined ? '' : _patient$name;
+        var dob = patient.dob;
+
+        patientString += name + ': ' + dob + '\n';
     });
-    console.log(string);
+
+    var alpha = 1;
+
+    console.log(patientString);
 
     var sum = function sum() {
         for (var _len = arguments.length, nums = Array(_len), _key = 0; _key < _len; _key++) {
@@ -31,14 +38,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return patient.name;
     });
 
-    console.log(filteredPatientNames.length);
+    console.log(filteredPatientNames);
 
     var PetOwner = function () {
         function PetOwner(name) {
             _classCallCheck(this, PetOwner);
 
             this.name = name;
-            this.pets = [{ petName: 'Muffin', type: 'Dog' }, { petName: 'Garfield', type: 'Cat' }] || [];
+            this.pets = [{ petName: 'Muffin', type: 'Dog' }, { petName: 'Garfield', type: 'Cat' }];
         }
 
         _createClass(PetOwner, [{
@@ -47,7 +54,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var _this = this;
 
                 this.pets.forEach(function (pet) {
-                    return console.log(_this);
+                    console.log('Hi, I\'m ' + pet.petName + ' and I\'m a\n                ' + pet.type + '. My owner is ' + _this.name);
                 });
             }
         }]);
@@ -55,11 +62,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return PetOwner;
     }();
 
-    var George = new PetOwner('George');
-    George.meetPets();
-
-    for (var _i = 0; _i < 4; _i++) {
-        console.log(_i);
-    }
-    console.log(i);
-})();
+    global.PetOwner = PetOwner;
+    global.sum = sum;
+})(window);

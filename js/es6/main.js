@@ -1,4 +1,4 @@
-﻿(() => {
+﻿((global) => {
 
     let patients = [
         {name: 'Inspector Javert', dob: 'Jan'},
@@ -6,40 +6,46 @@
         {name: 'Sancho Panza', dob: 'Jan'}
     ]
 
-    let string = '';
+    let patientString = '';
     patients.forEach(
-        patient => string += `This is ${patient.name}. He was born in ${patient.dob}\n`
-        );
-    console.log(string);
+        patient => {
+            const {name = '', dob} = patient;
+            patientString += `${name}: ${dob}\n`;
+        }
+    );
+    
+    const alpha = 1;
+    
+    console.log(patientString);
 
     let sum = (...nums) => nums.reduce((value, current) => value + current);
     console.log(sum(1, 2, 3, 4, 5, 6, 7, 8));
     
     let filteredPatientNames = patients
-        .filter(patient => patient.dob === 'Jan').map(patient => patient.name);
+        .filter(patient => patient.dob === 'Jan')
+        .map(patient => patient.name);
     
-    console.log(filteredPatientNames.length);
-
+    console.log(filteredPatientNames);
+    
     class PetOwner {
         constructor(name) {
             this.name = name;
             this.pets = [
                 {petName: 'Muffin', type: 'Dog'},
                 {petName: 'Garfield', type: 'Cat'}
-            ] || []
+            ];
         }
 
         meetPets() {
-            this.pets.forEach(pet => console.log(this));
+            this.pets.forEach(pet => {
+                console.log(`Hi, I'm ${pet.petName} and I'm a
+                ${pet.type}. My owner is ${this.name}`);
+            });
         }
     }
-    const George = new PetOwner('George');
-    George.meetPets();
-
-    for (let i = 0; i < 4; i++) {
-        console.log(i);
-    }
-    console.log(i);
     
-})();
+    global.PetOwner = PetOwner;
+    global.sum = sum;
+    
+})(window);
 
